@@ -17,8 +17,8 @@
                 {{ csrf() }}
 
                 <label for="name" class="block text-xs font-semibold text-gray-600 uppercase">Name</label>
-                <input id="name" type="text" name="name" placeholder="Your name" class="block w-full py-3 px-1 mt-2 text-gray-800 appearance-none border-b-2 border-gray-100 focus:text-gray-500 focus:outline-none focus:border-gray-200" />
-                {{ error('name')|raw }}
+                <input id="name" type="text" name="full_name" placeholder="Your name" class="block w-full py-3 px-1 mt-2 text-gray-800 appearance-none border-b-2 border-gray-100 focus:text-gray-500 focus:outline-none focus:border-gray-200" />
+                {{ error('full_name')|raw }}
 
 
                 <label for="email" class="block mt-4 text-xs font-semibold text-gray-600 uppercase">Email</label>

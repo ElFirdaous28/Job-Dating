@@ -22,22 +22,22 @@ class AuthController extends Controller
     public function handleRegister()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['csrf_token']) && Security::validateCSRFToken($_POST['csrf_token'])) {
-            $name = $_POST['name'];
+            $full_name = $_POST['full_name'];
             $email = $_POST['email'];
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-            $name = $_POST['name'];
+            $full_name = $_POST['full_name'];
             $email = $_POST['email'];
             $password = $_POST['password'];
 
             $rules = [
-                'name' => 'required|min:3|max:50',
+                'full_name' => 'required|min:3|max:50',
                 'email' => 'required|email',
                 'password' => 'required|min:8'
             ];
 
             $data = [
-                'name' => $name,
+                'full_name' => $full_name,
                 'email' => $email,
                 'password' => $password
             ];
@@ -55,7 +55,7 @@ class AuthController extends Controller
 
                 $role = (User::count() === 0) ? 'admin' : 'user';
                 $user = User::create([
-                    'name' => $name,
+                    'full_name' => $full_name,
                     'email' => $email,
                     'password' => password_hash($password, PASSWORD_DEFAULT),
                     'role' => $role
