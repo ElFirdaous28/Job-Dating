@@ -1,0 +1,12 @@
+# Ignore vendor directory (Composer dependencies)
+/vendor/
+/cache/
+
+# Ignore Composer's lock file (if you don’t want to track specific versions)
+composer.lock
+
+# ignore the config
+# /config/config.php
+
+# ignore the .nev file
+.env
