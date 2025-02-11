@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-class m20250211110732_test {
+class m20250211133844_test {
     public function up() {
         Capsule::schema()->create('test', function ($table) {
             $table->increments('id');
