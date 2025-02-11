@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="flex h-screen bg-gray-100">
+    <!-- Include Sidebar Partial -->
+    {% include 'partials/sidebar.html' %}
+
+    <!-- Main Content Area -->
+    <div class="flex-1 flex flex-col">
+        <!-- Include Top Bar Partial -->
+        {% include 'partials/topBar.html' %}
+
+        <!-- Content Section, This will be overwritten in child templates -->
+        <div class="flex-1 flex items-center justify-center">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</body>
+
+</html>
