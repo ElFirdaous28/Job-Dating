@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-require_once '../vendor/autoload.php';
-require_once 'config/config.php';
+require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/config/config.php';
 $capsule = new Capsule;
 
 $capsule->addConnection([
@@ -16,3 +16,13 @@ $capsule->addConnection([
 
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
+
+// Create migrations table if not exists
+if (!Capsule::schema()->hasTable('migrations')) {
+   Capsule::schema()->create('migrations', function ($table) {
+      $table->increments('id');
+      $table->string('migration');
+      $table->integer('batch');
+      $table->timestamps();
+   });
+}
