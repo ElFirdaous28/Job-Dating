@@ -28,7 +28,7 @@ class Auth
     public static function setLoginSessions($user)
     {
         Session::set('user_logged_in_id', $user->id);
-        Session::set('user_logged_in_name', $user->name);
+        Session::set('user_logged_in_name', $user->full_name);
         Session::set('user_logged_in_email', $user->email);
         Session::set('user_logged_in_role', $user->role ?? 'user');
     }
