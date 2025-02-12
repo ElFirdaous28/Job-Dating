@@ -14,6 +14,7 @@ return [
 
     'admin' => [
         '/admin/home',
+        '/admin/announcements',
     ],
 
     'student' => [

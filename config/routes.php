@@ -3,7 +3,7 @@
 use App\Core\Router;
 use App\Controllers\HomeController;
 use App\Controllers\AuthController;
-
+use App\Controllers\AnnounceCont;
 $router = new Router();
 
 //<========================================================================================>
@@ -20,3 +20,5 @@ $router->addRoute('GET', '/logout', [AuthController::class, 'logout']);
 //<========================================================================================>
 $router->addRoute('GET', '/admin/home', [HomeController::class, 'adminHome']);
 $router->addRoute('GET', '/student/home', [HomeController::class, 'userHome']);
+// Admin Announecement
+$router -> addRoute("GET","/admin/announcements",[AnnounceCont::class, 'index']);
