@@ -7,5 +7,5 @@ use App\Core\Model;
 class Announcements extends Model
 {
     protected $table = 'announcements';
-    protected $fillable = ['title', 'description', 'job_category', 'admin_id',"company_id"];
+    protected $fillable = ['title', 'description', 'job_category',"company_id"];
 }
