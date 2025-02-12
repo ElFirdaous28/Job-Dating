@@ -3,7 +3,7 @@ namespace App\Controllers;
 use App\Core\Controller;
 use App\Models\Announcement;
 
-class AnnounceCont extends Controller {
+class AnnounceController extends Controller {
 
    
     public function index() {
@@ -27,10 +27,16 @@ class AnnounceCont extends Controller {
     }
 
     public function getAnnouncements()
-{
-    $announcements = Announcement::all();
-    echo json_encode($announcements);
-}
+    {
+        $announcements = Announcement::all();
+        $role = $_SESSION['user_logged_in_role'] ?? 'user'; // Ensure role is always set
+
+        // Send a structured JSON response
+        echo json_encode([
+            'announcements' => $announcements,
+            'role' => $role
+        ]);
+    }
 
    
 }
