@@ -34,6 +34,10 @@ class View
             }
             return '';
         }, ['is_safe' => ['html']]));
+        
+        self::$twig->addFunction(new \Twig\TwigFunction('session', function ($key, $default = null) {
+            return $_SESSION[$key] ?? $default;
+        }));
     }
 
     public static function render($view, $data = [])
