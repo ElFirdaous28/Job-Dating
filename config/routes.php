@@ -22,4 +22,4 @@ $router->addRoute('GET', '/admin/home', [HomeController::class, 'adminHome']);
 $router->addRoute('GET', '/student/home', [HomeController::class, 'userHome']);
 // Admin Announecement
 $router -> addRoute("GET","/admin/announcements",[AnnounceController::class, 'annoncements']);
-$router -> addRoute("GET","/admin/announcements/add",[AnnounceController::class, 'create']);
+$router -> addRoute("POST","/admin/announcements/add",[AnnounceController::class, 'create']);
