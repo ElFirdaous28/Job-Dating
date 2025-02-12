@@ -14,9 +14,12 @@ class View
         $loader = new FilesystemLoader('../App/Views');
         self::$twig = new Environment($loader, [
             'cache' => '../cache',
-            'auto_reload' => true // Useful during development
+            'auto_reload' => true, // Useful during development
+            'debug'=>true,
         ]);
 
+        $debugExtension = new \Twig\Extension\DebugExtension();
+        self::$twig->addExtension($debugExtension);
         // Add CSRF function to Twig
         self::$twig->addFunction(new \Twig\TwigFunction('csrf', function () {
             return '<input type="hidden" name="csrf_token" value="' . Security::generateCSRFToken() . '">';
