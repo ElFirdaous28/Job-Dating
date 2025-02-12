@@ -17,6 +17,7 @@ return [
     'admin' => [
         '/admin/home',
         '/admin/announcements',
+        '/admin/announcements/add',
         "/admin/companies",
         '/admin/add_company',
         '/getCompany',
