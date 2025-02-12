@@ -23,4 +23,6 @@ class HomeController extends Controller
         // var_dump($announcements);die();
         $this->view('User/UserHome',['username'=>$_SESSION['user_logged_in_name'],"announcements"=> $announcements]);
     }
+    
+
 }

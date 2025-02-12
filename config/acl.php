@@ -3,6 +3,8 @@ return [
     'common' => [
         '/',
         '/logout',
+        '/getAnnouncements',
+    
     ],
 
     'guest' => [

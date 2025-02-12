@@ -22,3 +22,5 @@ $router->addRoute('GET', '/admin/home', [HomeController::class, 'adminHome']);
 $router->addRoute('GET', '/student/home', [HomeController::class, 'userHome']);
 // Admin Announecement
 $router -> addRoute("GET","/admin/announcements",[AnnounceCont::class, 'index']);
+//<========================================================================================>
+$router -> addRoute('GET','/getAnnouncements', [AnnounceCont::class,'getAnnouncements']);

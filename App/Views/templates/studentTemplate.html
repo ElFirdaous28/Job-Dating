@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -17,7 +18,7 @@
         <!-- Content Section, This will be overwritten in child templates -->
         <div class="flex-1 flex items-center justify-center">
             {% block content %}
-            
+
             {% endblock %}
         </div>
     </div>
