@@ -1,13 +1,13 @@
 <?php
 namespace App\Controllers;
 use App\Core\Controller;
-use App\Models\Announcements;
+use App\Models\Announcement;
 
 class AnnounceCont extends Controller {
 
    
     public function index() {
-        $announncements = Announcements::all();
+        $announncements = Announcement::all();
         $this -> view('admin/announcements', ['username'=>$_SESSION['user_logged_in_name'], 'announcements' => $announncements]);
 
     }
@@ -15,7 +15,7 @@ class AnnounceCont extends Controller {
  
     public function create() {
 
-        Announcements::create([
+        Announcement::create([
             'title' => 'New Announcement 2',
             'description' => 'This is a new announcement 2',
             'location' => 'Cairo - Egypt',
@@ -25,6 +25,12 @@ class AnnounceCont extends Controller {
         echo 'Announcement created successfully';
 
     }
+
+    public function getAnnouncements()
+{
+    $announcements = Announcement::all();
+    echo json_encode($announcements);
+}
 
    
 }
