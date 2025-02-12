@@ -1,6 +1,6 @@
 <?php
 
-$filename = $argv[1] ?? null;
+$filename = $argv[1] ?? null;   
 
 if (!$filename) {
     echo "Usage: php scripts/create_migration.php CreateUsersTable\n";
