@@ -5,7 +5,7 @@ use App\Models\Announcements;
 use App\Models\Company;
 use Exception;
 
-class AnnounceCont extends Controller {
+class AnnounceController extends Controller {
 
    
     public function annoncements() {
