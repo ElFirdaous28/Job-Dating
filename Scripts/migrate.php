@@ -11,7 +11,6 @@ $dotenv->load();
 $batch = Capsule::table('migrations')->max('batch') + 1;
 $migrationsDir = __DIR__ . '/../App/Migrations/';
 $files = glob($migrationsDir . '/*.php');
-
 foreach ($files as $file) {
     $migrationName = pathinfo($file, PATHINFO_FILENAME);
     $className = $migrationName;

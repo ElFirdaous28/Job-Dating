@@ -16,7 +16,7 @@ return [
         '/admin/home',
     ],
 
-    'user' => [
-        '/user/home',
+    'student' => [
+        '/student/home',
     ],
 ];

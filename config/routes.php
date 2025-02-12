@@ -19,4 +19,4 @@ $router->addRoute('POST', '/handleLogin', [AuthController::class, 'handleLogin']
 $router->addRoute('GET', '/logout', [AuthController::class, 'logout']);
 //<========================================================================================>
 $router->addRoute('GET', '/admin/home', [HomeController::class, 'adminHome']);
-$router->addRoute('GET', '/user/home', [HomeController::class, 'userHome']);
+$router->addRoute('GET', '/student/home', [HomeController::class, 'userHome']);
