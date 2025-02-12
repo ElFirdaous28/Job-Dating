@@ -38,7 +38,7 @@ class Auth
         if ($role === 'admin') {
             header('Location: /admin/home');
         } else {
-            header('Location: /user/home');
+            header('Location: /student/home');
         }
         exit;
     }

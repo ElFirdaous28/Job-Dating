@@ -53,7 +53,7 @@ class AuthController extends Controller
                     exit;
                 }
 
-                $role = (User::count() === 0) ? 'admin' : 'user';
+                $role = (User::count() === 0) ? 'admin' : 'student';
                 $user = User::create([
                     'full_name' => $full_name,
                     'email' => $email,
