@@ -82,4 +82,20 @@ class CompanyController extends Controller {
         }
         return false;
     }
+
+    
+    public function getCompany()
+{
+    $companies = Company::all();
+    $role = $_SESSION['user_logged_in_role'] ?? 'user'; // Ensure role is always set
+    echo json_encode([
+        'companies'=>$companies,
+        'role' => $role
+    ]);
+}
+public function companiesPage(){
+    $this->view('Admin/companies',['username'=>$_SESSION['user_logged_in_name']]);
+
+}
+ 
 }

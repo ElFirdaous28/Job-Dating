@@ -18,7 +18,8 @@ return [
         '/admin/home',
         '/admin/announcements',
         "/admin/companies",
-        '/admin/add_company'
+        '/admin/add_company',
+        '/getCompany',
     ],
 
     'student' => [

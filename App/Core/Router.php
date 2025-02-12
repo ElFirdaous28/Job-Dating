@@ -23,7 +23,6 @@ class Router
     public function dispatch($requestMethod, $requestUri)
     {
         $userRole = Session::get('user_logged_in_role') ?? 'guest';
-
         if (!$this->checkAccess($userRole, $requestUri)) {
             $this->showForbiddenPage();
         }
