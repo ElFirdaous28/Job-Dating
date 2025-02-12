@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 use App\Core\Controller;
-use App\Models\Announcements;
+use App\Models\Announcement;
 use App\Models\Company;
 use Exception;
 
@@ -9,7 +9,7 @@ class AnnounceController extends Controller {
 
    
     public function annoncements() {
-        $announncements = Announcements::all();
+        $announncements = Announcement::all();
         $companies = Company::all();
         $this -> view('admin/announcements', ['username'=>$_SESSION['user_logged_in_name'], 'announcements' => $announncements, "companies"=>$companies]);
 
@@ -17,8 +17,6 @@ class AnnounceController extends Controller {
 
  
     public function create() {
-    
-    
         if (!isset($_SESSION["csrf_token"]) || $_SESSION["csrf_token"] !== $_POST["csrf_token"]) {
             echo json_encode(["success" => false, "message" => "Invalid CSRF token"]);
             exit;
@@ -34,11 +32,14 @@ class AnnounceController extends Controller {
             exit;
         }
     
+        // Default image path in case no image is uploaded
+        $imagePath = null;
+    
         // Handle Image Upload
         if (isset($_FILES["an-image"]) && $_FILES["an-image"]["error"] === UPLOAD_ERR_OK) {
             $imageTmp = $_FILES["an-image"]["tmp_name"];
             $imageName = time() . "_" . basename($_FILES["an-image"]["name"]); // Unique name
-            $uploadDir = __DIR__ . "/../../public/uploads/"; // Change this to your upload directory
+            $uploadDir = __DIR__ . "/../../public/uploads/"; 
             $imagePath = "/uploads/" . $imageName;
     
             // Create directory if not exists
@@ -51,17 +52,15 @@ class AnnounceController extends Controller {
                 echo json_encode(["success" => false, "message" => "Failed to upload image"]);
                 exit;
             }
-        } else {
-            $imagePath = null; // No image uploaded
         }
     
         try {
-            Announcements::create([
+            Announcement::create([
                 'title' => $title,
                 'description' => $desc,
                 'job_category' => $category,
                 'company_id' => $company,
-                'image' => $imagePath // Save image path in database
+                'image_path' => $imagePath 
             ]);
     
             echo json_encode(["success" => true, "message" => "Announcement created successfully"]);
@@ -72,6 +71,12 @@ class AnnounceController extends Controller {
         exit;
     }
     
+    
+    public function getAnnouncements()
+{
+    $announcements = Announcement::all();
+    echo json_encode($announcements);
+}
 
    
 }

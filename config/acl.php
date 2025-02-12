@@ -3,6 +3,8 @@ return [
     'common' => [
         '/',
         '/logout',
+        '/getAnnouncements',
+    
     ],
 
     'guest' => [
@@ -16,6 +18,8 @@ return [
         '/admin/home',
         '/admin/announcements',
         '/admin/announcements/add',
+        "/admin/companies",
+        '/admin/add_company'
     ],
 
     'student' => [
