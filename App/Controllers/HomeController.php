@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
+use App\Model\Announcement;
+use App\Models\Announcement as ModelsAnnouncement;
 
 class HomeController extends Controller
 {
@@ -17,6 +19,10 @@ class HomeController extends Controller
     }
     public function userHome()
     {
-        $this->view('User/UserHome',['username'=>$_SESSION['user_logged_in_name']]);
+        $announcements=ModelsAnnouncement::all();
+        // var_dump($announcements);die();
+        $this->view('User/UserHome',['username'=>$_SESSION['user_logged_in_name'],"announcements"=> $announcements]);
     }
+    
+
 }

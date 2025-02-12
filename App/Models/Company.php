@@ -7,6 +7,5 @@ use App\Core\Model;
 class Company extends Model
 {
     protected $table = 'companies';
-    protected $fillable = ["title", "description", "job_category", "company_id"];
+    protected $fillable = ["company_name", "description", "email", "phone", "website"];
 }
-    
