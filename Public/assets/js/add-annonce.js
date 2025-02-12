@@ -4,20 +4,22 @@ document.addEventListener("DOMContentLoaded", function() {
     form.addEventListener("submit", function(e) {
         e.preventDefault(); // Prevent page reload
 
-        // Get form data and convert it to query parameters
+        // Create FormData object and append all form fields
         const formData = new FormData(form);
-        const queryString = new URLSearchParams(formData).toString();
-        // console.log(formData);
-        // console.log(queryString);
-        // Send AJAX GET request
-        fetch(`/admin/announcements/add?${queryString}`, { // Data is sent in URL
-            method: 'GET'
+
+        fetch(`/admin/announcements/add`, { // Use POST instead of GET
+            method: 'POST',
+            body: formData // Send FormData
         })
         .then(response => response.json()) // Expect JSON response
         .then(data => {
             console.log('Server Response:', data);
-            alert("Announcement saved successfully!");
-            form.reset();
+            if (data.success) {
+                alert("✅ Announcement saved successfully!");
+                form.reset();
+            } else {
+                alert("❌ " + data.message);
+            }
         })
         .catch(error => console.error('Error:', error));
     });
