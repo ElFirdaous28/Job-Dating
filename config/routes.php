@@ -20,3 +20,13 @@ $router->addRoute('GET', '/logout', [AuthController::class, 'logout']);
 //<========================================================================================>
 $router->addRoute('GET', '/admin/home', [HomeController::class, 'adminHome']);
 $router->addRoute('GET', '/student/home', [HomeController::class, 'userHome']);
+
+
+
+//<========================================================================================>
+$router->addRoute('GET', '/admin/companies', [CompanyController::class, 'index']);
+$router->addRoute('POST', '/admin/addCompany', [CompanyController::class, 'store']);
+$router->addRoute('POST','/admin/updateCompany/{id}', [CompanyController::class, 'update']);
+$router->addRoute('POST','/admin/deleteCompany/{id}', [CompanyController::class, 'destroy']);
+
+
