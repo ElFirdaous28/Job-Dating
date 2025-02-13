@@ -91,10 +91,24 @@ class AnnounceController extends Controller
         $searchTerm = $_GET['search'] ?? '';
         $role = $_SESSION['user_logged_in_role'] ?? 'student';
         $announcements = Announcement::with('company')
-            ->where('title', 'ILIKE', '%' . $searchTerm . '%') 
+            ->where('title', 'ILIKE', '%' . $searchTerm . '%')
             ->get();
 
-            echo json_encode([
+        echo json_encode([
+            'announcements' => $announcements,
+            'role' => $role
+        ]);
+    }
+    public function getFilteredAnnouncements()
+    {
+        $category = $_GET['filter'] ?? '';
+        $role = $_SESSION['user_logged_in_role'] ?? 'student';
+        $announcements = Announcement::with('company')
+            ->where('job_category', 'ILIKE', '%' . $category . '%')
+            ->get();
+
+        echo json_encode([
+            "category" => $category,
             'announcements' => $announcements,
             'role' => $role
         ]);

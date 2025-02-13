@@ -5,7 +5,7 @@ return [
         '/logout',
         '/getAnnouncements',
         '/getSearchedAnnouncements',
-    
+        '/getFilteredAnnouncements',
     ],
 
     'guest' => [

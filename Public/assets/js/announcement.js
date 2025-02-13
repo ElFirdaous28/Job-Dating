@@ -1,8 +1,11 @@
-function loadAnnouncements(url, searchValue="") {
+function loadAnnouncements(url, searchValue = "", filterValue = "") {
     $.ajax({
         url: url,
         method: "GET",
-        data: { search: searchValue },
+        data: {
+            search: searchValue,
+            filter: filterValue
+        },
         dataType: "json",
         success: function (response) {
             console.log("API Response:", response); // Debugging
@@ -39,14 +42,14 @@ function loadAnnouncements(url, searchValue="") {
                         <div class="relative h-48 overflow-hidden">
                             <div class="absolute top-4 left-4 z-10">
                                 <span class="px-4 py-2 bg-blue-500 text-white rounded-full text-sm font-medium">
-                                    ${announcement.title}
+                                    ${announcement.job_category}
                                 </span>
                             </div>
                             <img src="/api/placeholder/400/300" alt="${announcement.title}" class="w-full h-full object-cover" />
                         </div>
                         <div class="p-6">
                             <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">
-                                ${announcement.description}
+                                ${announcement.title}
                             </h3>
                             <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
                                 <div class="flex items-center mr-4">
@@ -81,6 +84,14 @@ loadAnnouncements("/getAnnouncements");
 
 // Search 
 let searchValue = $("#search_text");
-searchValue.on("keyup", function() {
+searchValue.on("keyup", function () {
     loadAnnouncements("/getSearchedAnnouncements", searchValue.val());
 });
+
+
+let filterValue = $("#filter-company");
+
+filterValue.change(function () {
+    loadAnnouncements("/getFilteredAnnouncements","", filterValue.val());
+});
+
