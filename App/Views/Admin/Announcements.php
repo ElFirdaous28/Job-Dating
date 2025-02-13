@@ -23,8 +23,6 @@
         </div>
     </div>
 
-
-    <script src="/assets/js/announcement.js"></script>
 </div>
 
 
@@ -84,4 +82,9 @@
         </div>
     </div>
 </div>
+
+
+<script src="/assets/js/announcement.js"></script>
+<script src="/assets/js/add-annonce.js"></script>
+
 {% endblock %}
