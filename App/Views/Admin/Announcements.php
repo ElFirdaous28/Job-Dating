@@ -6,15 +6,43 @@
 
 <!-- Modal toggle -->
 <div class="felx flex-col">
+<!-- --------------------------------- -->
+    
+<div class="flex flex-col items-center py-12 px-4">
+    <!-- Barre de recherche -->
+    <div class="container mx-auto mt-10 px-4">
 
-    <div class="flex justify-end">
+    <div class="flex flex-row gap-6 items-center">
+        <!-- Barre de recherche -->
+        <div class="relative w-full max-w-3xl">
+            <input type="text" id="search_text"
+                class="w-full p-4 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 text-lg placeholder-gray-500 transition duration-200 ease-in-out"
+                placeholder="Rechercher une annonce...">
+            <div id="result" class="absolute w-full mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-10 hidden">
+                <!-- Résultats de la recherche -->
+            </div>
+        </div>
+        <!-- Barre de filtrage -->
+        <div class="w-full max-w-3xl">
+            <select id="filter-company"
+                class="w-full p-4 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 text-lg transition duration-200 ease-in-out">
+                <option value="">Sélectionner une catégorie</option>
+                {% for category in categories %}
+                <option value="{{ category['job_category'] }}">{{ category["job_category"] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+</div>
+
+
+    <div class="flex justify-end w-full">
         <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
             class="my-5 mr-5 block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             type="button">
             Add Announcement
         </button>
     </div>
-
 
 
     <div class="container mx-auto p-5">
