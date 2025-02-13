@@ -44,6 +44,8 @@ $router -> addRoute("GET","/admin/announcements/trashed",[AnnounceController::cl
 // Admin companies
 
 $router -> addRoute("GET","/getCompany",[CompanyController::class, 'getCompany']);
+$router->addRoute('DELETE', '/deleteCompany/{id}', [CompanyController::class, 'deleteCompany']);
+
 
 //<========================================================================================>
 $router -> addRoute('GET','/getAnnouncements', [AnnounceController::class,'getAnnouncements']);

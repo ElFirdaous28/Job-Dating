@@ -126,4 +126,13 @@ class CompanyController extends Controller
     {
         $this->view('Admin/companies', ['username' => $_SESSION['user_logged_in_name']]);
     }
+
+    public function deleteCompany($id)
+    {
+        $company = Company::find($id);
+
+        if ($company) {
+            $company->delete();
+        }
+    }
 }
