@@ -8,6 +8,7 @@ use App\Core\Controller;
 use App\Core\Security;
 use App\Core\Validator;
 use Exception;
+
 class CompanyController extends Controller
 {
 
@@ -53,7 +54,6 @@ class CompanyController extends Controller
                     header("Location: " . $_SERVER['HTTP_REFERER']);
                     exit;
                 }
-
             }
             try {
                 Company::create([
@@ -63,14 +63,13 @@ class CompanyController extends Controller
                     'website' => $website,
                     'description' => $description
                 ]);
-    
+
                 echo json_encode(["success" => true, "message" => "Company created successfully"]);
             } catch (Exception $e) {
                 echo json_encode(["success" => false, "message" => "Database error: " . $e->getMessage()]);
             }
-    
+
             exit;
-            
         }
     }
 
