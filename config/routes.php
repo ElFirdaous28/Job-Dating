@@ -34,6 +34,7 @@ $router->addRoute('POST', '/admin/add_company', [CompanyController::class, 'crea
 
 // Admin Announecement
 $router -> addRoute("GET","/admin/announcements",[AnnounceController::class, 'annoncements']);
+$router -> addRoute("POST","/admin/announcements/add",[AnnounceController::class, 'create']);
 
 // Admin companies
 

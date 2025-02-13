@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Create FormData object and append all form fields
         const formData = new FormData(form);
 
-        fetch(`/admin/announcements/add`, { // Use POST instead of GET
+        fetch(`/admin/announcements/add`, {
             method: 'POST',
             body: formData // Send FormData
         })
