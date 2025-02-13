@@ -80,10 +80,16 @@ class AnnounceController extends Controller
         exit;
     }
 
-
     public function getAnnouncements()
     {
         $announcements = Announcement::all();
-        echo json_encode($announcements);
+        $role = $_SESSION['user_logged_in_role'] ?? 'student';
+
+        // Send a structured JSON response
+        echo json_encode([
+            'announcements' => $announcements,
+            'role' => $role
+        ]);
     }
+
 }
