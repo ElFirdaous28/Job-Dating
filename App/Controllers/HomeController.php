@@ -3,8 +3,7 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
-use App\Model\Announcement;
-use App\Models\Announcement as ModelsAnnouncement;
+use App\Models\Announcement;
 
 class HomeController extends Controller
 {
@@ -19,7 +18,8 @@ class HomeController extends Controller
     }
     public function userHome()
     {
-        $this->view('User/UserHome',['username'=>$_SESSION['user_logged_in_name']]);
+        $categories = Announcement::select('job_category')->distinct()->get();
+        $this->view('User/UserHome',['username'=>$_SESSION['user_logged_in_name'],"categories"=> $categories]);
     }
 
 }
