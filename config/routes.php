@@ -5,6 +5,7 @@ use App\Controllers\HomeController;
 use App\Controllers\AuthController;
 use App\Controllers\AnnounceController;
 use App\Controllers\CompanyController;
+
 $router = new Router();
 
 //<========================================================================================>
@@ -24,7 +25,6 @@ $router->addRoute('GET', '/student/home', [HomeController::class, 'userHome']);
 
 //<========================================================================================>
 $router->addRoute('GET', '/admin/companies', [CompanyController::class, 'companiesPage']);
-$router->addRoute('GET', '/admin/companies', [CompanyController::class, 'annoncements']);
 $router->addRoute('POST', '/admin/add_company', [CompanyController::class, 'createCompany']);
 // $router->addRoute('POST','/admin/updateCompany/{id}', [CompanyController::class, 'update']);
 // $router->addRoute('POST','/admin/deleteCompany/{id}', [CompanyController::class, 'destroy']);
@@ -33,5 +33,11 @@ $router->addRoute('POST', '/admin/add_company', [CompanyController::class, 'crea
 
 
 // Admin Announecement
-$router -> addRoute("GET","/admin/announcements",[AnnounceController::class, 'annoncements']);
-$router -> addRoute("POST","/admin/announcements/add",[AnnounceController::class, 'create']);
+$router -> addRoute("GET","/admin/announcements",[AnnounceController::class, 'index']);
+
+// Admin companies
+
+$router -> addRoute("GET","/getCompany",[CompanyController::class, 'getCompany']);
+
+//<========================================================================================>
+$router -> addRoute('GET','/getAnnouncements', [AnnounceController::class,'getAnnouncements']);

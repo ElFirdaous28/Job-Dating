@@ -1,17 +1,23 @@
 <?php
+
 namespace App\Controllers;
+
 use App\Core\Session;
 use App\Models\Company;
 use App\Core\Controller;
 use App\Core\Security;
 use App\Core\Validator;
-class CompanyController extends Controller {
 
-    public function index() {
+class CompanyController extends Controller
+{
+
+    public function index()
+    {
         $this->view('Admin/Companies');
     }
 
-    public function createCompany() {
+    public function createCompany()
+    {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $company_name = $_POST["company_name"];
             $email = $_POST["email"];
@@ -62,10 +68,10 @@ class CompanyController extends Controller {
                 }
             }
         }
-
     }
 
-    public function update($id, $data) {
+    public function update($id, $data)
+    {
         $company = Company::find($id);
         if ($company) {
             $company->update($data);
@@ -74,7 +80,8 @@ class CompanyController extends Controller {
         return null;
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         $company = Company::find($id);
         if ($company) {
             $company->delete();
@@ -83,19 +90,18 @@ class CompanyController extends Controller {
         return false;
     }
 
-    
-    public function getCompany()
-{
-    $companies = Company::all();
-    $role = $_SESSION['user_logged_in_role'] ?? 'user'; // Ensure role is always set
-    echo json_encode([
-        'companies'=>$companies,
-        'role' => $role
-    ]);
-}
-public function companiesPage(){
-    $this->view('Admin/companies',['username'=>$_SESSION['user_logged_in_name']]);
 
-}
- 
+    public function getCompany()
+    {
+        $companies = Company::all();
+        $role = $_SESSION['user_logged_in_role'] ?? 'user'; // Ensure role is always set
+        echo json_encode([
+            'companies' => $companies,
+            'role' => $role
+        ]);
+    }
+    public function companiesPage()
+    {
+        $this->view('Admin/companies', ['username' => $_SESSION['user_logged_in_name']]);
+    }
 }
