@@ -13,9 +13,11 @@ class AnnounceController extends Controller
 
     public function annoncements()
     {
+        $categories = Announcement::select('job_category')->distinct()->get();
+
         $announncements = Announcement::all();
         $companies = Company::all();
-        $this->view('admin/announcements', ['username' => $_SESSION['user_logged_in_name'], 'announcements' => $announncements, "companies" => $companies]);
+        $this->view('admin/announcements', ['username' => $_SESSION['user_logged_in_name'], 'announcements' => $announncements, "companies" => $companies,"categories"=> $categories]);
     }
 
     public function create()
@@ -150,6 +152,34 @@ class AnnounceController extends Controller
 
         // Send a structured JSON response
         echo json_encode([
+            'announcements' => $announcements,
+            'role' => $role
+        ]);
+    }
+
+    public function getSearchedAnnouncements()
+    {
+        $searchTerm = $_GET['search'] ?? '';
+        $role = $_SESSION['user_logged_in_role'] ?? 'student';
+        $announcements = Announcement::with('company')
+            ->where('title', 'ILIKE', '%' . $searchTerm . '%')
+            ->get();
+
+        echo json_encode([
+            'announcements' => $announcements,
+            'role' => $role
+        ]);
+    }
+    public function getFilteredAnnouncements()
+    {
+        $category = $_GET['filter'] ?? '';
+        $role = $_SESSION['user_logged_in_role'] ?? 'student';
+        $announcements = Announcement::with('company')
+            ->where('job_category', 'ILIKE', '%' . $category . '%')
+            ->get();
+
+        echo json_encode([
+            "category" => $category,
             'announcements' => $announcements,
             'role' => $role
         ]);
