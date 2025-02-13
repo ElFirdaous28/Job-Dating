@@ -19,7 +19,7 @@ return [
         '/admin/announcements',
         '/admin/announcements/add',
         "/admin/companies",
-        '/admin/add_company',
+        '/admin/companies/add_company',
         '/getCompany',
     ],
 
