@@ -27,7 +27,7 @@ return [
         '/admin/announcements/trashed',
         '/getDeletedAnnouncements',
         '/restoreAnnouncement/{id}',
-
+        '/deleteCompany/{id}',
     ],
 
     'student' => [
