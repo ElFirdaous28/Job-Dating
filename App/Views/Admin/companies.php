@@ -82,5 +82,5 @@
 </div>
 
 <script src="/assets/js/company.js"></script>
-
+ 
 {% endblock %}
