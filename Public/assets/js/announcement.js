@@ -1,4 +1,3 @@
-
 $.ajax({
     url: "/getAnnouncements",
     method: "GET",
@@ -23,11 +22,12 @@ $.ajax({
         announcementDiv.html(""); // Clear before adding new content
 
         announcements.forEach(announcement => {
+            let companyName = announcement.company ? announcement.company.company_name : "Entreprise inconnue"; // Access company name
             let buttons = "";
             if (userRole === "admin") {
                 buttons = `
                     <div class="flex mt-4 space-x-2">
-                        <button class="px-4 py-2 bg-yellow-500 text-white rounded-lg" data-id="">Edit</button>
+                        <button class="px-4 py-2 bg-yellow-500 text-white rounded-lg">Edit</button>
                         <button class="px-4 py-2 bg-red-500 text-white rounded-lg">Delete</button>
                     </div>`;
             }
@@ -40,7 +40,7 @@ $.ajax({
                                 ${announcement.title}
                             </span>
                         </div>
-                        <img src="${announcement.image_path}" alt="${announcement.title}" class="w-full h-full object-cover" />
+                        <img src="/api/placeholder/400/300" alt="${announcement.title}" class="w-full h-full object-cover" />
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">
@@ -51,21 +51,20 @@ $.ajax({
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                 </svg>
-                                <span>${announcement.author || "Anonyme"}</span>
+                                <span>${companyName}</span> <!-- Display company name -->
                             </div>
                             <div class="flex items-center">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                 </svg>
-                                <span>${new Date(announcement.date).toLocaleDateString()}</span>
+                                <span>${new Date(announcement.published_at).toLocaleDateString()}</span>
                             </div>
                         </div>
                         ${buttons} <!-- Buttons added dynamically -->
                     </div>
                 </div>
             `;
-            console.log(announcement.image_path);
-            console.log(announcement.id);
+
             announcementDiv.append(announcementHTML);
         });
     },
