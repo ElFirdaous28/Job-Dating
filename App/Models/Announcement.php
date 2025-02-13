@@ -15,8 +15,7 @@ class Announcement extends Model
         return $this->belongsTo(Company::class);
     }
     public function announcements()
-{
-    return $this->hasMany(Announcement::class);
-}
-
+    {
+        return $this->hasMany(Announcement::class);
+    }
 }
