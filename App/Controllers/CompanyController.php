@@ -26,12 +26,29 @@ class CompanyController extends Controller
             $website = $_POST["website"];
             $description = $_POST["description"];
 
+            $imagePath = null;
+
+            if (isset($_FILES["an-image"]) && $_FILES["an-image"]["error"] === UPLOAD_ERR_OK) {
+                $imageTmp = $_FILES["an-image"]["tmp_name"];
+                $imageName = time() . "_" . basename($_FILES["an-image"]["name"]);
+                $uploadDir = __DIR__ . "/../../public/uploads/";
+                $imagePath = "/uploads/" . $imageName;
+                if (!is_dir($uploadDir)) {
+                    mkdir($uploadDir, 0755, true);
+                }
+                if (!move_uploaded_file($imageTmp, $uploadDir . $imageName)) {
+                    echo json_encode(["success" => false, "message" => "Failed to upload image"]);
+                    exit;
+                }
+            }
+
             $rules = [
                 'company_name' => 'required|min:3|max:50',
                 'email' => 'required|email',
                 'phone' => 'required|numeric|min:10|max:17',
                 'website' => 'required|url',
-                'description' => 'required'
+                'description' => 'required',
+                'image_path' => 'required'
             ];
 
             $data = [
@@ -39,21 +56,21 @@ class CompanyController extends Controller
                 'email' => $email,
                 'phone' => $phone,
                 'website' => $website,
-                'description' => $description
-
+                'description' => $description,
+                'image_path' => $imagePath
             ];
 
             $errors = Validator::validate($data, $rules);
             if (!empty($errors)) {
                 echo json_encode(["success" => false, "message" => $errors]);
                 exit;
-            } else {
+            } 
+            else {
                 if (Company::where('company_name', $company_name)->exists()) {
-                    Session::set('errors', ['createCompanyError' => 'This company name is already registered!']);
-                    header("Location: " . $_SERVER['HTTP_REFERER']);
+                    $errors = "This company name is already registered!";
+                    echo json_encode(["success" => false, "message" => $errors]);
                     exit;
                 }
-
             }
             try {
                 Company::create([
@@ -61,7 +78,8 @@ class CompanyController extends Controller
                     'email' => $email,
                     'phone' => $phone,
                     'website' => $website,
-                    'description' => $description
+                    'description' => $description,
+                    'image_path' => $imagePath
                 ]);
     
                 echo json_encode(["success" => true, "message" => "Company created successfully"]);
