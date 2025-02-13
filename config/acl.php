@@ -21,6 +21,7 @@ return [
         "/admin/companies",
         '/admin/add_company',
         '/getCompany',
+        '/admin/announcements/edit',
     ],
 
     'student' => [

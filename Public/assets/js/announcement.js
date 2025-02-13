@@ -27,7 +27,7 @@ $.ajax({
             if (userRole === "admin") {
                 buttons = `
                     <div class="flex mt-4 space-x-2">
-                        <button class="px-4 py-2 bg-yellow-500 text-white rounded-lg" data-id="">Edit</button>
+                        <button class="px-4 py-2 bg-yellow-500 text-white rounded-lg" id="openModalBtn" data-an="${announcement.id}">Edit</button>
                         <button class="px-4 py-2 bg-red-500 text-white rounded-lg">Delete</button>
                     </div>`;
             }
@@ -57,15 +57,13 @@ $.ajax({
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                 </svg>
-                                <span>${new Date(announcement.date).toLocaleDateString()}</span>
+                                <span>${new Date(announcement.created_at).toLocaleDateString()}</span>
                             </div>
                         </div>
                         ${buttons} <!-- Buttons added dynamically -->
                     </div>
                 </div>
             `;
-            console.log(announcement.image_path);
-            console.log(announcement.id);
             announcementDiv.append(announcementHTML);
         });
     },
