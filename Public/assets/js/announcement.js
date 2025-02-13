@@ -1,11 +1,11 @@
-function loadAnnouncements(url, searchValue="") {
+function loadAnnouncements(url, searchValue = "") {
     $.ajax({
         url: url,
         method: "GET",
         data: { search: searchValue },
         dataType: "json",
         success: function (response) {
-            console.log("API Response:", response); // Debugging
+            console.log("API Response:", response);
 
             if (!response || typeof response !== "object") {
                 console.error("Invalid response format:", response);
@@ -21,17 +21,28 @@ function loadAnnouncements(url, searchValue="") {
             }
 
             let announcementDiv = $("#announcement-div");
-            announcementDiv.html(""); // Clear before adding new content
+            announcementDiv.html("");
+
+            // Get current page URL
+            const currentPath = window.location.pathname;
 
             announcements.forEach(announcement => {
-                let companyName = announcement.company ? announcement.company.company_name : "Entreprise inconnue"; // Access company name
+                let companyName = announcement.company ? announcement.company.company_name : "Entreprise inconnue";
                 let buttons = "";
+
                 if (userRole === "admin") {
-                    buttons = ` 
-                        <div class="flex mt-4 space-x-2">
-                            <button class="px-4 py-2 bg-yellow-500 text-white rounded-lg">Edit</button>
-                            <button class="px-4 py-2 bg-red-500 text-white rounded-lg">Delete</button>
-                        </div>`;
+                    if (currentPath === "/admin/announcements/trashed") {
+                        buttons = `
+                            <div class="flex mt-4 space-x-2">
+                                <button class="restore-btn px-4 py-2 bg-green-500 text-white rounded-lg" data-id="${announcement.id}">Restore</button>
+                            </div>`;
+                    } else if (currentPath === "/admin/announcements") {
+                        buttons = ` 
+                            <div class="flex mt-4 space-x-2">
+                                <button class="edit-btn px-4 py-2 bg-yellow-500 text-white rounded-lg" data-id="${announcement.id}">Edit</button>
+                                <button class="delete-btn px-4 py-2 bg-red-500 text-white rounded-lg" data-id="${announcement.id}">Delete</button>
+                            </div>`;
+                    }
                 }
 
                 let announcementHTML = `
@@ -53,7 +64,7 @@ function loadAnnouncements(url, searchValue="") {
                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                     </svg>
-                                    <span>${companyName}</span> <!-- Display company name -->
+                                    <span>${companyName}</span>
                                 </div>
                                 <div class="flex items-center">
                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -62,7 +73,7 @@ function loadAnnouncements(url, searchValue="") {
                                     <span>${new Date(announcement.published_at).toLocaleDateString()}</span>
                                 </div>
                             </div>
-                            ${buttons} <!-- Buttons added dynamically -->
+                            ${buttons}
                         </div>
                     </div>
                 `;
@@ -76,11 +87,64 @@ function loadAnnouncements(url, searchValue="") {
     });
 }
 
-// Load announcements with a specific URL
-loadAnnouncements("/getAnnouncements");
 
-// Search 
-let searchValue = $("#search_text");
-searchValue.on("keyup", function() {
-    loadAnnouncements("/getSearchedAnnouncements", searchValue.val());
+$(document).ready(function () {
+    const currentPath = window.location.pathname;
+
+    if (currentPath === "/admin/announcements/trashed") {
+        loadAnnouncements('/getDletedAnnouncements', '', '');
+    } else if (currentPath === "/admin/announcements") {
+        loadAnnouncements('/getSearchedAnnouncements', '', '');
+    }
 });
+
+// Search functionality
+let searchValue = $("#search_text");
+searchValue.on("keyup", function () {
+    const searchUrl = currentPath === "/admin/announcements/trashed" 
+        ? "/getSearchedTrashAnnouncements" 
+        : "/getSearchedAnnouncements";
+    loadAnnouncements(searchUrl, searchValue.val());
+});
+
+// Delete announcement handler
+$(document).on("click", ".delete-btn", function () {
+    let announcementId = $(this).data("id");
+    if (confirm("Are you sure you want to delete this announcement?")) {
+        deleteAnnouncement(announcementId);
+    }
+});
+
+function deleteAnnouncement(id) {
+    $.ajax({
+        url: `/deleteAnnouncement/${id}`,
+        method: "DELETE",
+        success: function () {
+            $(`#announcement-${id}`).remove();
+        },
+        error: function (error) {
+            console.error("Error deleting announcement:", error);
+        }
+    });
+}
+
+// Restore announcement handler
+$(document).on("click", ".restore-btn", function () {
+    let announcementId = $(this).data("id");
+    if (confirm("Are you sure you want to restore this announcement?")) {
+        restoreAnnouncement(announcementId);
+    }
+});
+
+function restoreAnnouncement(id) {
+    $.ajax({
+        url: `/restoreAnnouncement/${id}`,
+        method: "POST",
+        success: function () {
+            $(`#announcement-${id}`).remove();
+        },
+        error: function (error) {
+            console.error("Error restoring announcement:", error);
+        }
+    });
+}

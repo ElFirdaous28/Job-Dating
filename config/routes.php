@@ -36,6 +36,10 @@ $router->addRoute('POST', '/admin/companies/add_company', [CompanyController::cl
 $router -> addRoute("GET","/admin/announcements",[AnnounceController::class, 'annoncements']);
 $router -> addRoute("POST","/admin/announcements/add",[AnnounceController::class, 'create']);
 
+// Admin trashed Announecement
+$router -> addRoute("GET","/admin/announcements/trashed",[AnnounceController::class, 'trashedAnnoncements']);
+
+
 // Admin companies
 
 $router -> addRoute("GET","/getCompany",[CompanyController::class, 'getCompany']);
@@ -43,3 +47,6 @@ $router -> addRoute("GET","/getCompany",[CompanyController::class, 'getCompany']
 //<========================================================================================>
 $router -> addRoute('GET','/getAnnouncements', [AnnounceController::class,'getAnnouncements']);
 $router -> addRoute('GET','/getSearchedAnnouncements', [AnnounceController::class,'getSearchedAnnouncements']);
+$router -> addRoute('GET','/getDletedAnnouncements', [AnnounceController::class,'getDletedAnnouncements']);
+$router->addRoute('DELETE', '/deleteAnnouncement/{id}', [AnnounceController::class, 'deleteAnnouncement']);
+$router->addRoute('POST', '/restoreAnnouncement/{id}', [AnnounceController::class, 'restoreAnnouncement']);
