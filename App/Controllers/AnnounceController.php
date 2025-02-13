@@ -10,19 +10,12 @@ use Exception;
 class AnnounceController extends Controller
 {
 
-
-    public function index()
-    {
-        $announncements = Announcement::all();
-        $this->view('admin/announcements', ['username' => $_SESSION['user_logged_in_name'], 'announcements' => $announncements]);
-    }
     public function annoncements()
     {
         $announncements = Announcement::all();
         $companies = Company::all();
         $this->view('admin/announcements', ['username' => $_SESSION['user_logged_in_name'], 'announcements' => $announncements, "companies" => $companies]);
     }
-
 
     public function create()
     {
@@ -91,5 +84,4 @@ class AnnounceController extends Controller
             'role' => $role
         ]);
     }
-
 }
