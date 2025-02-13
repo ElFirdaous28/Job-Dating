@@ -6,6 +6,7 @@ use App\Core\Controller;
 use App\Models\Announcement;
 use App\Models\Company;
 use Exception;
+use Symfony\Component\VarDumper\VarDumper;
 
 class AnnounceController extends Controller
 {
@@ -75,7 +76,7 @@ class AnnounceController extends Controller
 
     public function getAnnouncements()
     {
-        $announcements = Announcement::all();
+        $announcements = Announcement::with('company')->get();
         $role = $_SESSION['user_logged_in_role'] ?? 'student';
 
         // Send a structured JSON response
