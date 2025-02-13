@@ -40,7 +40,7 @@ $.ajax({
                                 ${announcement.title}
                             </span>
                         </div>
-                        <img src="/api/placeholder/400/300" alt="${announcement.title}" class="w-full h-full object-cover" />
+                        <img src="${announcement.image_path}" alt="${announcement.title}" alt="${announcement.title}" class="w-full h-full object-cover" />
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">
