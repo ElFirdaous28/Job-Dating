@@ -7,7 +7,7 @@ use App\Models\Company;
 use App\Core\Controller;
 use App\Core\Security;
 use App\Core\Validator;
-
+use Exception;
 class CompanyController extends Controller
 {
 
@@ -18,6 +18,7 @@ class CompanyController extends Controller
 
     public function createCompany()
     {
+
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $company_name = $_POST["company_name"];
             $email = $_POST["email"];
@@ -28,7 +29,7 @@ class CompanyController extends Controller
             $rules = [
                 'company_name' => 'required|min:3|max:50',
                 'email' => 'required|email',
-                'phone' => 'required|numeric|min:10|max:10',
+                'phone' => 'required|numeric|min:10|max:17',
                 'website' => 'required|url',
                 'description' => 'required'
             ];
@@ -44,7 +45,8 @@ class CompanyController extends Controller
 
             $errors = Validator::validate($data, $rules);
             if (!empty($errors)) {
-                header("Location: /admin/companies");
+                echo json_encode(["success" => false, "message" => $errors]);
+                exit;
             } else {
                 if (Company::where('company_name', $company_name)->exists()) {
                     Session::set('errors', ['createCompanyError' => 'This company name is already registered!']);
@@ -52,21 +54,23 @@ class CompanyController extends Controller
                     exit;
                 }
 
-                $createResult = Company::create([
+            }
+            try {
+                Company::create([
                     'company_name' => $company_name,
                     'email' => $email,
                     'phone' => $phone,
                     'website' => $website,
                     'description' => $description
                 ]);
-                if ($createResult) {
-                    $this->index();
-                } else {
-                    $error = "There was an error creating the company.";
-                    Session::set('errors', ['createCompanyError' => $error]);
-                    $this->view('Admin/CreateCompany', ['error' => $error]);
-                }
+    
+                echo json_encode(["success" => true, "message" => "Company created successfully"]);
+            } catch (Exception $e) {
+                echo json_encode(["success" => false, "message" => "Database error: " . $e->getMessage()]);
             }
+    
+            exit;
+            
         }
     }
 
