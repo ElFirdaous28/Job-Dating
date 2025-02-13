@@ -18,6 +18,13 @@ class AnnounceController extends Controller
         $this->view('admin/announcements', ['username' => $_SESSION['user_logged_in_name'], 'announcements' => $announncements, "companies" => $companies]);
     }
 
+    public function trashedAnnoncements()
+    {
+        $announncements = Announcement::all();
+        $companies = Company::all();
+        $this->view('admin/TrashedAnnouncements', ['username' => $_SESSION['user_logged_in_name'], 'announcements' => $announncements, "companies" => $companies]);
+    }
+
     public function create()
     {
         if (!isset($_SESSION["csrf_token"]) || $_SESSION["csrf_token"] !== $_POST["csrf_token"]) {
@@ -86,17 +93,48 @@ class AnnounceController extends Controller
         ]);
     }
 
+
+    public function getDletedAnnouncements()
+    {
+        $announcements = Announcement::onlyTrashed()->with('company')->get();
+        $role = $_SESSION['user_logged_in_role'] ?? 'student';
+
+        // Send a structured JSON response
+        echo json_encode([
+            'announcements' => $announcements,
+            'role' => $role
+        ]);
+    }
+
     public function getSearchedAnnouncements()
     {
         $searchTerm = $_GET['search'] ?? '';
         $role = $_SESSION['user_logged_in_role'] ?? 'student';
         $announcements = Announcement::with('company')
-            ->where('title', 'ILIKE', '%' . $searchTerm . '%') 
+            ->where('title', 'ILIKE', '%' . $searchTerm . '%')
             ->get();
 
-            echo json_encode([
+        echo json_encode([
             'announcements' => $announcements,
             'role' => $role
         ]);
+    }
+
+    public function deleteAnnouncement($id)
+    {
+        $announcement = Announcement::find($id);
+
+        if ($announcement) {
+            $announcement->delete();
+        }
+    }
+    public function restoreAnnouncement($id)
+    {
+        $announcement = Announcement::withTrashed()->find($id);
+
+        if ($announcement) {
+            // Restore the announcement
+            $announcement->restore();
+        }
     }
 }

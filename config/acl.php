@@ -22,6 +22,11 @@ return [
         "/admin/companies",
         '/admin/companies/add_company',
         '/getCompany',
+        '/deleteAnnouncement/{id}',
+        '/admin/announcements/trashed',
+        '/getDletedAnnouncements',
+        '/restoreAnnouncement/{id}',
+
     ],
 
     'student' => [
