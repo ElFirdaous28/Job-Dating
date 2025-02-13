@@ -42,3 +42,4 @@ $router -> addRoute("GET","/getCompany",[CompanyController::class, 'getCompany']
 
 //<========================================================================================>
 $router -> addRoute('GET','/getAnnouncements', [AnnounceController::class,'getAnnouncements']);
+$router -> addRoute('GET','/getSearchedAnnouncements', [AnnounceController::class,'getSearchedAnnouncements']);

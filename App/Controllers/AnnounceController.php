@@ -85,4 +85,18 @@ class AnnounceController extends Controller
             'role' => $role
         ]);
     }
+
+    public function getSearchedAnnouncements()
+    {
+        $searchTerm = $_GET['search'] ?? '';
+        $role = $_SESSION['user_logged_in_role'] ?? 'student';
+        $announcements = Announcement::with('company')
+            ->where('title', 'ILIKE', '%' . $searchTerm . '%') 
+            ->get();
+
+            echo json_encode([
+            'announcements' => $announcements,
+            'role' => $role
+        ]);
+    }
 }

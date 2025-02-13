@@ -4,14 +4,12 @@
 
 {% block content %}
 <div class="flex flex-col">
-    <h1 class="text-3xl">This is the <span class="text-red-500">User's</span> home</h1>
-
-    <!-- barre de recherche -->
+      <!-- barre de recherche -->
     <div class="container mx-auto mt-8 px-4">
         <h2 class="text-2xl font-semibold text-gray-700 mb-4">Rechercher des entreprises</h2>
 
         <div class="relative w-full max-w-lg">
-            <input type="text" id="search_text" onkeyup="search_data(this.value);"
+            <input type="text" id="search_text"
                 class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Rechercher une entreprise ou une annonce...">
 
@@ -31,7 +29,6 @@
     </div>
 </div>
 
-<script src="/assets/js/search.js"></script>
 <script src="/assets/js/announcement.js"></script>
 
 {% endblock %}
