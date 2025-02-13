@@ -94,4 +94,4 @@ function deleteCompany(id) {
         error: function (error) {
             console.error("Error deleting company:", error);
         }
-    });
+    });}
