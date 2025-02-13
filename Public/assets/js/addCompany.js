@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const form = document.querySelector("#annonce-add");
+    const form = document.querySelector("#addCompany");
 
     form.addEventListener("submit", function(e) {
         e.preventDefault(); // Prevent page reload
@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Create FormData object and append all form fields
         const formData = new FormData(form);
 
-        fetch(`/admin/announcements/add`, {
+        fetch(`/admin/companies/add_company`, { // Use POST instead of GET
             method: 'POST',
             body: formData // Send FormData
         })
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 alert("✅ Announcement saved successfully!");
                 form.reset();
             } else {
-                alert("❌ " + data.message);
+                alert("❌ " + Object.values(data.message).join("\n"));
             }
         })
         .catch(error => console.error('Error:', error));

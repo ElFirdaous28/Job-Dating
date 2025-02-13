@@ -27,7 +27,7 @@ $.ajax({
             if (userRole === "admin") {
                 buttons = `
                     <div class="flex mt-4 space-x-2">
-                        <button class="px-4 py-2 bg-yellow-500 text-white rounded-lg">Edit</button>
+                        <button class="px-4 py-2 bg-yellow-500 text-white rounded-lg" data-id="">Edit</button>
                         <button class="px-4 py-2 bg-red-500 text-white rounded-lg">Delete</button>
                     </div>`;
             }
@@ -40,7 +40,7 @@ $.ajax({
                                 ${announcement.title}
                             </span>
                         </div>
-                        <img src="/api/placeholder/400/300" alt="${announcement.title}" class="w-full h-full object-cover" />
+                        <img src="${announcement.image_path}" alt="${announcement.title}" class="w-full h-full object-cover" />
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">
@@ -64,7 +64,8 @@ $.ajax({
                     </div>
                 </div>
             `;
-
+            console.log(announcement.image_path);
+            console.log(announcement.id);
             announcementDiv.append(announcementHTML);
         });
     },

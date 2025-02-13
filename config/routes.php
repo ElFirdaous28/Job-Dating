@@ -25,7 +25,7 @@ $router->addRoute('GET', '/student/home', [HomeController::class, 'userHome']);
 
 //<========================================================================================>
 $router->addRoute('GET', '/admin/companies', [CompanyController::class, 'companiesPage']);
-$router->addRoute('POST', '/admin/add_company', [CompanyController::class, 'createCompany']);
+$router->addRoute('POST', '/admin/companies/add_company', [CompanyController::class, 'createCompany']);
 // $router->addRoute('POST','/admin/updateCompany/{id}', [CompanyController::class, 'update']);
 // $router->addRoute('POST','/admin/deleteCompany/{id}', [CompanyController::class, 'destroy']);
 
@@ -34,6 +34,7 @@ $router->addRoute('POST', '/admin/add_company', [CompanyController::class, 'crea
 
 // Admin Announecement
 $router -> addRoute("GET","/admin/announcements",[AnnounceController::class, 'annoncements']);
+$router -> addRoute("POST","/admin/announcements/add",[AnnounceController::class, 'create']);
 
 // Admin companies
 
