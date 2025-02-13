@@ -31,3 +31,8 @@ CREATE TABLE announcements (
     admin_id INT REFERENCES users(id) ON DELETE SET NULL,  -- L'admin qui gère l'annonce
     company_id INT REFERENCES companies(id) ON DELETE CASCADE
 );
+ALTER TABLE companies
+ADD image_path VARCHAR(255);
+
+ALTER TABLE announcements
+ADD image_path VARCHAR(255);
