@@ -26,6 +26,12 @@ class Validator
             if (preg_match('/max:(\d+)/', $rule, $match) && strlen($value) > $match[1]) {
                 $errors[$field] = "$field cannot be more than {$match[1]} characters.";
             }
+
+            
+
+
+
+
         }
 
         return $errors;
