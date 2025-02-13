@@ -27,7 +27,7 @@ $.ajax({
             if (userRole === "admin") {
                 buttons = `
                     <div class="flex mt-4 space-x-2">
-                        <button class="px-4 py-2 bg-yellow-500 text-white rounded-lg">Edit</button>
+                        <button class="px-4 py-2 bg-yellow-500 text-white rounded-lg" id="openModalBtn" data-an="${announcement.id}">Edit</button>
                         <button class="px-4 py-2 bg-red-500 text-white rounded-lg">Delete</button>
                     </div>`;
             }
@@ -64,7 +64,6 @@ $.ajax({
                     </div>
                 </div>
             `;
-
             announcementDiv.append(announcementHTML);
         });
     },
