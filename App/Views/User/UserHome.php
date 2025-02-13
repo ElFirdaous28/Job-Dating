@@ -3,7 +3,7 @@
 {% block title %}User home{% endblock %}
 
 {% block content %}
-<div class="flex flex-col items-center py-12 px-4">
+<div class="flex flex-col items-center py-12 px-4 ">
     <!-- Barre de recherche -->
     <div class="container mx-auto mt-10 px-4">
 
