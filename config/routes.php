@@ -36,6 +36,7 @@ $router->addRoute('POST','/admin/companies/edit', [CompanyController::class, 'up
 $router -> addRoute("GET","/admin/announcements",[AnnounceController::class, 'annoncements']);
 $router -> addRoute("POST","/admin/announcements/add",[AnnounceController::class, 'create']);
 $router -> addRoute("POST","/admin/announcements/edit",[AnnounceController::class, 'updateAnnounce']);
+$router -> addRoute("GET","/admin/announces/get/{id}",[AnnounceController::class, 'getEditAnnounce']);
 
 // Admin trashed Announecement
 $router -> addRoute("GET","/admin/announcements/trashed",[AnnounceController::class, 'trashedAnnoncements']);
