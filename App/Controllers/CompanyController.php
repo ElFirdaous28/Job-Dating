@@ -8,6 +8,7 @@ use App\Core\Controller;
 use App\Core\Security;
 use App\Core\Validator;
 use Exception;
+
 class CompanyController extends Controller
 {
 
@@ -81,14 +82,13 @@ class CompanyController extends Controller
                     'description' => $description,
                     'image_path' => $imagePath
                 ]);
-    
+
                 echo json_encode(["success" => true, "message" => "Company created successfully"]);
             } catch (Exception $e) {
                 echo json_encode(["success" => false, "message" => "Database error: " . $e->getMessage()]);
             }
-    
+
             exit;
-            
         }
     }
 
@@ -125,5 +125,14 @@ class CompanyController extends Controller
     public function companiesPage()
     {
         $this->view('Admin/companies', ['username' => $_SESSION['user_logged_in_name']]);
+    }
+
+    public function deleteCompany($id)
+    {
+        $company = Company::find($id);
+
+        if ($company) {
+            $company->delete();
+        }
     }
 }

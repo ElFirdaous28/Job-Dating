@@ -35,10 +35,22 @@ $router->addRoute('POST', '/admin/companies/add_company', [CompanyController::cl
 // Admin Announecement
 $router -> addRoute("GET","/admin/announcements",[AnnounceController::class, 'annoncements']);
 $router -> addRoute("POST","/admin/announcements/add",[AnnounceController::class, 'create']);
+$router -> addRoute("POST","/admin/announcements/edit",[AnnounceController::class, 'updateAnnounce']);
+
+// Admin trashed Announecement
+$router -> addRoute("GET","/admin/announcements/trashed",[AnnounceController::class, 'trashedAnnoncements']);
+
 
 // Admin companies
 
 $router -> addRoute("GET","/getCompany",[CompanyController::class, 'getCompany']);
+$router->addRoute('DELETE', '/deleteCompany/{id}', [CompanyController::class, 'deleteCompany']);
+
 
 //<========================================================================================>
 $router -> addRoute('GET','/getAnnouncements', [AnnounceController::class,'getAnnouncements']);
+$router -> addRoute('GET','/getSearchedAnnouncements', [AnnounceController::class,'getSearchedAnnouncements']);
+$router -> addRoute('GET','/getFilteredAnnouncements', [AnnounceController::class,'getFilteredAnnouncements']);
+$router -> addRoute('GET','/getDeletedAnnouncements', [AnnounceController::class,'getDeletedAnnouncements']);
+$router->addRoute('DELETE', '/deleteAnnouncement/{id}', [AnnounceController::class, 'deleteAnnouncement']);
+$router->addRoute('POST', '/restoreAnnouncement/{id}', [AnnounceController::class, 'restoreAnnouncement']);
