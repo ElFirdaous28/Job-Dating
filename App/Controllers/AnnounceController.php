@@ -14,7 +14,6 @@ class AnnounceController extends Controller
     public function annoncements()
     {
         $categories = Announcement::select('job_category')->distinct()->get();
-
         $announncements = Announcement::all();
         $companies = Company::all();
         $this->view('admin/announcements', ['username' => $_SESSION['user_logged_in_name'], 'announcements' => $announncements, "companies" => $companies,"categories"=> $categories]);
