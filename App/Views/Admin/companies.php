@@ -5,13 +5,17 @@
 {% block content %}
 
 <!-- Modal toggle -->
-<div class="relative mt-24">
-    <div class="absolute -top-1/4 right-0 md:-top-[4%]" >
-        <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+<div>
+    <div class="flex flex-col gap-5" >
+        <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="block w-1/5 ml-auto my-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
             Add Company
         </button>
     </div>
+    <div id="companies-div" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- companies will appear here -->
         
+</div>
+    </div>        
 
     <!-- Main modal -->
 
@@ -74,12 +78,10 @@
             </div>
         </div>
     </div>
-    <div id="companies-div" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- companies will appear here -->
 
-    </div>
 
-</div>
+
+
 
 <script src="/assets/js/company.js"></script>
 
