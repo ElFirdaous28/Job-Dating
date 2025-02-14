@@ -29,9 +29,9 @@ class CompanyController extends Controller
 
             $imagePath = null;
 
-            if (isset($_FILES["an-image"]) && $_FILES["an-image"]["error"] === UPLOAD_ERR_OK) {
-                $imageTmp = $_FILES["an-image"]["tmp_name"];
-                $imageName = time() . "_" . basename($_FILES["an-image"]["name"]);
+            if (isset($_FILES["company_image"]) && $_FILES["company_image"]["error"] === UPLOAD_ERR_OK) {
+                $imageTmp = $_FILES["company_image"]["tmp_name"];
+                $imageName = time() . "_" . basename($_FILES["company_image"]["name"]);
                 $uploadDir = __DIR__ . "/../../public/uploads/";
                 $imagePath = "/uploads/" . $imageName;
                 if (!is_dir($uploadDir)) {
@@ -92,15 +92,93 @@ class CompanyController extends Controller
         }
     }
 
-    public function update($id, $data)
-    {
-        $company = Company::find($id);
-        if ($company) {
-            $company->update($data);
-            return $company;
+
+    public function getEditCompany($id) {
+        try {
+            $company = Company::find($id);
+            if (!$company) {
+                echo json_encode(["success" => false, "message" => "Company not found"]);
+                exit;
+            }
+    
+            echo json_encode(["success" => true, "company" => $company]);
+        } catch (Exception $e) {
+            echo json_encode(["success" => false, "message" => "Database error: " . $e->getMessage()]);
         }
-        return null;
+    
+        exit;
     }
+    
+
+    public function updateCompany() {
+
+        if (!isset($_SESSION["csrf_token"]) || $_SESSION["csrf_token"] !== $_POST["csrf_token"]) {
+            echo json_encode(["success" => false, "message" => "Invalid CSRF token"]);
+            exit;
+        }
+    
+        $id = $_POST["company_id"];
+        $name = $_POST["company_name"];
+        $email = $_POST["email"];
+        $phone = $_POST["phone"];
+        $website = $_POST["website"];
+        $description = $_POST["description"];
+
+        if (empty($id) || empty($name) || empty($email) || empty($phone) || empty($website) || empty($description)) {
+            echo json_encode(["success" => false, "message" => "All fields are required"]);
+            exit;
+        }
+
+        try {
+            $company = Company::find($id);
+            if (!$company) {
+                echo json_encode(["success" => false, "message" => "Company not found"]);
+                exit;
+            }
+
+            if (isset($_FILES["company_image"]) && $_FILES["company_image"]["error"] === UPLOAD_ERR_OK) {
+                $imageTmp = $_FILES["company_image"]["tmp_name"];
+                $imageName = time() . "_" . basename($_FILES["company_image"]["name"]);
+                $uploadDir = __DIR__ . "/../../public/uploads/";
+                $imagePath = "/uploads/" . $imageName;
+
+                if (!is_dir($uploadDir)) {
+                    mkdir($uploadDir, 0755, true);
+                }
+
+                if (!empty($company->image_path)) {
+                    $oldImagePath = __DIR__ . "/../../public" . $company->image_path;
+                    if (file_exists($oldImagePath)) {
+                        unlink($oldImagePath);
+                    }
+                }
+
+                if (!move_uploaded_file($imageTmp, $uploadDir . $imageName)) {
+                    echo json_encode(["success" => false, "message" => "Failed to upload image"]);
+                    exit;
+                }
+    
+                $company->image_path = $imagePath;
+            }
+
+            $company->company_name = $name;
+            $company->email = $email;
+            $company->phone = $phone;
+            $company->website = $website;
+            $company->description = $description;
+            $company->updated_at = time();
+    
+            $company->save();
+    
+            echo json_encode(["success" => true, "message" => "Company updated successfully"]);
+        } catch (Exception $e) {
+            echo json_encode(["success" => false, "message" => "Database error: " . $e->getMessage()]);
+        }
+    
+        exit;
+    }
+    
+    
 
     public function delete($id)
     {

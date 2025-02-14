@@ -14,7 +14,6 @@ class AnnounceController extends Controller
     public function annoncements()
     {
         $categories = Announcement::select('job_category')->distinct()->get();
-
         $announncements = Announcement::all();
         $companies = Company::all();
         $this->view('admin/announcements', ['username' => $_SESSION['user_logged_in_name'], 'announcements' => $announncements, "companies" => $companies,"categories"=> $categories]);
@@ -221,5 +220,21 @@ class AnnounceController extends Controller
             // Restore the announcement
             $announcement->restore();
         }
+    }
+    // get data to put in edit form
+    public function getEditAnnounce($id) {
+        try {
+            $announce = Announcement::find($id);
+            if (!$announce) {
+                echo json_encode(["success" => false, "message" => "announce not found"]);
+                exit;
+            }
+    
+            echo json_encode(["success" => true, "announce" => $announce]);
+        } catch (Exception $e) {
+            echo json_encode(["success" => false, "message" => "Database error: " . $e->getMessage()]);
+        }
+    
+        exit;
     }
 }
