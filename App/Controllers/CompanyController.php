@@ -213,4 +213,16 @@ class CompanyController extends Controller
             $company->delete();
         }
     }
+
+    public function getSearchedCompanies()
+    {
+        $searchTerm = $_GET['search'] ?? '';
+        $role = $_SESSION['user_logged_in_role'] ?? 'student';
+        $companies = Company::where('company_name', 'ILIKE', "%$searchTerm%")->get();
+
+        echo json_encode([
+            'companies' => $companies,
+            'role' => $role
+        ]);
+    }
 }
