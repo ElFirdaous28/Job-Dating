@@ -29,8 +29,8 @@ setTimeout(() => {
     });
 
 
-    form.addEventListener("submit", function(e) {
-        e.preventDefault(); 
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
 
         const formData = new FormData(form);
 
@@ -38,18 +38,23 @@ setTimeout(() => {
             method: 'POST',
             body: formData
         })
-        .then(response => response.json()) 
-        .then(data => {
-            console.log('Server Response:', data);
-            if (data.success) {
-                alert("✅ " + data.message );
-                form.reset();
-                modal.classList.add('hidden');
-            } else {
-                alert("❌ " + data.message);
-            }
-        })
-        .catch(error => console.error('Error:', error));
+            .then(response => response.json())
+            .then(data => {
+                console.log('Server Response:', data);
+                if (data.success) {
+                    alert("✅ " + data.message);
+                    form.reset();
+
+                    const modalElement = document.getElementById('edit-company-modal');
+                    const modal = new Modal(modalElement);
+
+                    modal.hide();
+                    loadCompanies('/getCompany');
+                } else {
+                    alert("❌ " + data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
     });
 
     closeModalBtn.addEventListener('click', () => {

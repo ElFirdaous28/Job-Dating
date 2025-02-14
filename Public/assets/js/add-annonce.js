@@ -17,11 +17,16 @@ document.addEventListener("DOMContentLoaded", function() {
             if (data.success) {
                 alert("✅ Announcement saved successfully!");
                 form.reset();
+
+                const modalElement = document.getElementById('crud-modal');
+                const modal = new Modal(modalElement);
+
+                modal.hide();
+                loadAnnouncements('/getAnnouncements');
             } else {
                 alert("❌ " + data.message);
             }
         })
         .catch(error => console.error('Error:', error));
-
     });
 });

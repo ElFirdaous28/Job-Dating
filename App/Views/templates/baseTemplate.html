@@ -1,3 +1,4 @@
+<!-- Template: base.html -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,27 +8,38 @@
     <title>{% block title %}{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 </head>
 
-<body class="flex h-screen bg-gray-100">
-    <!-- Include Sidebar Partial -->
-    {% include 'partials/sidebar.html' %}
+<body class="bg-gray-100">
+    <!-- Main Container -->
+    <div class="flex h-screen overflow-hidden">
+        
+        {% if session('user_logged_in_role') == 'admin' %}
+            <!-- Fixed Sidebar -->
+            {% include 'partials/sideBar.html' %}
+        {% endif %}
 
-    <!-- Main Content Area -->
-    <div class="flex-1 flex flex-col">
-        <!-- Include Top Bar Partial -->
-        {% include 'partials/topBar.html' %}
+        <!-- Main Content Wrapper -->
+        <div class="flex-1 {% if session('user_logged_in_role') == 'admin' %}ml-64{% endif %} flex flex-col h-screen">
+            <!-- Fixed Top Bar -->
+            <header class="bg-white shadow-sm">
+                {% include 'partials/topBar.html' %}
+            </header>
 
-        <!-- Content Section, This will be overwritten in child templates -->
-        <div class="flex-1 flex items-center justify-center">
-            {% block content %}
-            {% endblock %}
+            <!-- Scrollable Content Area -->
+            <main class="flex-1 overflow-y-auto p-4">
+                {% block content %}
+                {% endblock %}
+            </main>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
-    <script src="/assets/js/addCompany.js"></script>
+    {% block scripts %}
+    {% endblock %}
+
 </body>
 
 </html>

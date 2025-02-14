@@ -1,5 +1,12 @@
 <!-- Top Bar -->
 <div class="bg-white shadow-md p-4 flex justify-between items-center">
     <h1 class="text-xl font-semibold">Dashboard</h1>
-    <span class="text-gray-600">Welcome, {{ username }}</span>
+    <div class="flex flex-row items-center gap-4">
+        <span class="text-gray-600">Welcome, {{ username }}</span>
+        {% if session('user_logged_in_role') == 'student' %}
+        <a href="/logout" class="text-red-600 hover:text-red-800 flex items-center">
+            <i class="bx bx-log-out text-lg mr-1"></i> Logout
+        </a>
+        {% endif %}
+    </div>
 </div>

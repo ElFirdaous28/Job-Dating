@@ -39,10 +39,10 @@ function loadCompanies() {
                         <div class="relative h-48 overflow-hidden">
                             <div class="absolute top-4 left-4 z-10">
                                 <span class="px-4 py-2 bg-blue-500 text-white rounded-full text-sm font-medium">
-                                    ${company.title}
+                                    ${company.company_name}
                                 </span>
                             </div>
-                            <img src="${company.image_path}" alt="${company.title}" class="w-full h-full object-cover" />
+                            <img src="${company.image_path}" alt="${company.company_name}" class="w-full h-full object-cover" />
                         </div>
                         <div class="p-6">
                             <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">
