@@ -140,6 +140,7 @@
 </div>
 
 
+<script src="/assets/js/addCompany.js"></script>
 <script src="/assets/js/company.js"></script>
 <script src="/assets/js/editCompany.js"></script>
  

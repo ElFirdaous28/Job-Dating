@@ -1,4 +1,4 @@
-{% extends 'templates/studentTemplate.html' %}
+{% extends 'templates/baseTemplate.html' %}
 
 {% block title %}User home{% endblock %}
 

@@ -45,6 +45,11 @@ setTimeout(()=>{
                if (data.success) {
                    alert("✅ Announcement updated successfully!");
                    form.reset();
+                   const modalElement = document.getElementById('modal');
+                   const modal = new Modal(modalElement);
+   
+                   modal.hide();
+                   loadAnnouncements('/getAnnouncements');
                } else {
                    alert("❌ " + data.message);
                }
