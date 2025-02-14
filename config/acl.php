@@ -26,6 +26,7 @@ return [
         '/getCompany',
         '/admin/announcements/edit',
         '/deleteAnnouncement/{id}',
+        '/permanentlyDeleteAnnouncement/{id}',
         '/admin/announcements/trashed',
         '/getDeletedAnnouncements',
         '/restoreAnnouncement/{id}',
