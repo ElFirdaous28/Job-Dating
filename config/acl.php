@@ -28,6 +28,7 @@ return [
         '/getDeletedAnnouncements',
         '/restoreAnnouncement/{id}',
         '/deleteCompany/{id}',
+        '/getSearchedCompanies',
     ],
 
     'student' => [
