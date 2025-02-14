@@ -55,4 +55,5 @@ $router -> addRoute('GET','/getSearchedAnnouncements', [AnnounceController::clas
 $router -> addRoute('GET','/getFilteredAnnouncements', [AnnounceController::class,'getFilteredAnnouncements']);
 $router -> addRoute('GET','/getDeletedAnnouncements', [AnnounceController::class,'getDeletedAnnouncements']);
 $router->addRoute('DELETE', '/deleteAnnouncement/{id}', [AnnounceController::class, 'deleteAnnouncement']);
+$router->addRoute('DELETE', '/permanentlyDeleteAnnouncement/{id}', [AnnounceController::class, 'permanentlyDeleteAnnouncement']);
 $router->addRoute('POST', '/restoreAnnouncement/{id}', [AnnounceController::class, 'restoreAnnouncement']);

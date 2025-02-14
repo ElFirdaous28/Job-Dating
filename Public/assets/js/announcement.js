@@ -26,6 +26,15 @@ function loadAnnouncements(url, searchValue = "", filterValue = "") {
             let announcementDiv = $("#announcement-div");
             announcementDiv.html("");
 
+            if (!Array.isArray(announcements) || announcements.length === 0) {
+                announcementDiv.html(`
+                    <div class="text-center text-gray-500 dark:text-gray-400 mt-4">
+                        No announcements to show.
+                    </div>
+                `);
+                return;
+            }
+
             // Get current page URL
             const currentPath = window.location.pathname;
 
@@ -36,8 +45,9 @@ function loadAnnouncements(url, searchValue = "", filterValue = "") {
                 if (userRole === "admin") {
                     if (currentPath === "/admin/announcements/trashed") {
                         buttons = `
-                            <div class="flex mt-4 space-x-2">
+                            <div class="flex justify-between mt-4 space-x-2">
                                 <button class="restore-btn px-4 py-2 bg-green-500 text-white rounded-lg" data-id="${announcement.id}">Restore</button>
+                                <button class="delete-permantly-btn px-4 py-2 bg-red-500 text-white rounded-lg" data-id="${announcement.id}">Delete permanently</button>
                             </div>`;
                     } else {
                         buttons = ` 
@@ -130,6 +140,27 @@ $(document).on("click", ".delete-btn", function () {
 function deleteAnnouncement(id) {
     $.ajax({
         url: `/deleteAnnouncement/${id}`,
+        method: "DELETE",
+        success: function () {
+            $(`#announcement-${id}`).remove();
+        },
+        error: function (error) {
+            console.error("Error deleting announcement:", error);
+        }
+    });
+}
+
+// Delete announcement permantly handler
+$(document).on("click", ".delete-permantly-btn", function () {
+    let announcementId = $(this).data("id");
+    if (confirm("Are you sure you want to delete this announcement permantly?")) {
+        deleteAnnouncementPermantly(announcementId);
+    }
+});
+
+function deleteAnnouncementPermantly(id) {    
+    $.ajax({
+        url: `/permanentlyDeleteAnnouncement/${id}`,
         method: "DELETE",
         success: function () {
             $(`#announcement-${id}`).remove();
