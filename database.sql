@@ -36,3 +36,5 @@ ADD image_path VARCHAR(255);
 
 ALTER TABLE announcements
 ADD image_path VARCHAR(255);
+
+ALTER TABLE announcements DROP COLUMN admin_id;
