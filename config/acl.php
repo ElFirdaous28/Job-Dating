@@ -31,6 +31,7 @@ return [
         '/restoreAnnouncement/{id}',
         '/deleteCompany/{id}',
         '/admin/announces/get/{id}',
+        '/getSearchedCompanies',
     ],
 
     'student' => [
