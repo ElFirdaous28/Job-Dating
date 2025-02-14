@@ -1,38 +1,39 @@
 
-    
+
+function loadCompanies() {
     $.ajax({
         url: "/getCompany",
         method: "GET",
         dataType: "json",
         success: function (response) {
             console.log("API Response:", response); // Debugging
-    
+
             if (!response || typeof response !== "object") {
                 console.error("Invalid response format:", response);
                 return;
             }
-    
+
             let companies = response.companies;
             let userRole = response.role;
-    
+
             if (!Array.isArray(companies)) {
                 console.error("Expected an array but got:", companies);
                 return;
             }
-    
+
             let companyDiv = $("#companies-div");
             companyDiv.html(""); // Clear before adding new content
-    
+
             companies.forEach(company => {
                 let buttons = "";
                 if (userRole === "admin") {
                     buttons = `
                         <div class="flex mt-4 space-x-2">
                             <button class="px-4 py-2 bg-yellow-500 text-white rounded-lg">Edit</button>
-                            <button class="px-4 py-2 bg-red-500 text-white rounded-lg">Delete</button>
+                            <button class="delete-btn px-4 py-2 bg-red-500 text-white rounded-lg" data-id="${company.id}">Delete</button>
                         </div>`;
                 }
-    
+
                 let companyHTML = `
                     <div class="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105">
                         <div class="relative h-48 overflow-hidden">
@@ -41,7 +42,7 @@
                                     ${company.title}
                                 </span>
                             </div>
-                            <img src="/api/placeholder/400/300" alt="${company.title}" class="w-full h-full object-cover" />
+                            <img src="${company.image_path}" alt="${company.title}" class="w-full h-full object-cover" />
                         </div>
                         <div class="p-6">
                             <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">
@@ -65,11 +66,33 @@
                         </div>
                     </div>
                 `;
-    
+
                 companyDiv.append(companyHTML);
             });
         },
         error: function (error) {
-            console.error("Erreur lors du chargement des annonces :", error);
+            console.error("Erreur lors du chargement des companies :", error);
         }
     });
+}
+loadCompanies();
+// Delete company handler
+$(document).on("click", ".delete-btn", function () {    
+    let companyId = $(this).data("id");
+    if (confirm("Are you sure you want to delete this company?")) {
+        deleteCompany(companyId);
+    }
+});
+
+function deleteCompany(id) {
+    $.ajax({
+        url: `/deleteCompany/${id}`,
+        method: "DELETE",
+        success: function () {
+            loadCompanies();
+        },
+        error: function (error) {
+            console.error("Error deleting company:", error);
+        }
+    });
+}
