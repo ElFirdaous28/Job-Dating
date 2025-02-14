@@ -21,6 +21,8 @@ return [
         '/admin/announcements/add',
         "/admin/companies",
         '/admin/companies/add_company',
+        '/admin/companies/get/{id}',
+        '/admin/companies/edit',
         '/getCompany',
         '/admin/announcements/edit',
         '/deleteAnnouncement/{id}',
