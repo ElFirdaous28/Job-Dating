@@ -221,4 +221,20 @@ class AnnounceController extends Controller
             $announcement->restore();
         }
     }
+    // get data to put in edit form
+    public function getEditAnnounce($id) {
+        try {
+            $announce = Announcement::find($id);
+            if (!$announce) {
+                echo json_encode(["success" => false, "message" => "announce not found"]);
+                exit;
+            }
+    
+            echo json_encode(["success" => true, "announce" => $announce]);
+        } catch (Exception $e) {
+            echo json_encode(["success" => false, "message" => "Database error: " . $e->getMessage()]);
+        }
+    
+        exit;
+    }
 }

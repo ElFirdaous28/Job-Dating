@@ -9,6 +9,21 @@ setTimeout(()=>{
      model.addEventListener('click', () => {
         let editId = parseInt(model.getAttribute("data-an"));
         document.getElementById("anId").value = editId;
+        // put data in form
+        fetch(`/admin/announces/get/${editId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log(data);
+                document.querySelector(".edit-title").value = data.announce.title;
+                document.querySelector(".edit-desc").value = data.announce.description;
+                document.querySelector(".edit-cat").value = data.announce.job_category;
+                document.querySelector(".edit-comp").value = data.announce.company_id;
+            } else {
+                alert("❌ Error fetching announce data: " + data.message);
+            }
+        })
+        .catch(error => console.error('Error fetching announce:', error));
         modal.classList.remove('hidden');
         // update the announcemenet
         // update announce

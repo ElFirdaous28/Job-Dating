@@ -30,6 +30,7 @@ return [
         '/getDeletedAnnouncements',
         '/restoreAnnouncement/{id}',
         '/deleteCompany/{id}',
+        '/admin/announces/get/{id}',
     ],
 
     'student' => [
